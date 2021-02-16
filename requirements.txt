@@ -1,0 +1,4 @@
+tkinter
+pyperclip
+googletrans==3.1.0a0
+psutil
