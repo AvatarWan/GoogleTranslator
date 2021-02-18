@@ -55,11 +55,13 @@ jobs:
           path: ./
           tkinter: true
       
-#       - name: Upload ${{ matrix.os }} Artifact
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: ${{ matrix.filename }}
-#           path: dist/linux/app*
+      - name: Upload ${{ matrix.os }} Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.filename }}
+          path: |
+            dist/windows/app*
+            dist/linux/app*
 
 #   release:
 #     # The type of runner that the job will run on
