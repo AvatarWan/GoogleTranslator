@@ -46,7 +46,7 @@ jobs:
         uses: JackMcKew/pyinstaller-action-windows@v0.1.2
         with:
           path: ./
-          tkinter: true
+#           tkinter: true
 
       - if: runner.os == 'Linux'
         name: Package Linux Application
