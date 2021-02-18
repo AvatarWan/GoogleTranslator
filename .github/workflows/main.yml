@@ -30,17 +30,19 @@ jobs:
       
       - name: Package Windows Application
         if: runner.os == 'Windows'
-        uses: JackMcKew/pyinstaller-action-windows@v0.1.2
-        with:
-          path: ./
-          tkinter: true
+        run: echo "Widows Working!"
+#         uses: JackMcKew/pyinstaller-action-windows@v0.1.2
+#         with:
+#           path: ./
+#           tkinter: true
 
       - name: Package Linux Application
         if: runner.os == 'Linux'
-        uses: JackMcKew/pyinstaller-action-linux@0.1.4
-        with:
-          path: ./
-          tkinter: true
+        run: echo "Linux Working!"
+#         uses: JackMcKew/pyinstaller-action-linux@0.1.4
+#         with:
+#           path: ./
+#           tkinter: true
       
 #       - name: Upload ${{ matrix.os }} Artifact
 #         uses: actions/upload-artifact@v2
