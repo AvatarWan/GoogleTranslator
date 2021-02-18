@@ -36,5 +36,5 @@ jobs:
       
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "dist/app"
+          artifacts: "dist/linux/app"
           token: ${{ secrets.GITHUB_TOKEN }}
