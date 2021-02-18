@@ -37,4 +37,5 @@ jobs:
         with:
           artifacts: "dist/linux/app"
           name: Google Translate v${{ github.event.inputs.versionName }}
+          tag: release,v${{ github.event.inputs.versionName }}
           token: ${{ secrets.GITHUB_TOKEN }}
