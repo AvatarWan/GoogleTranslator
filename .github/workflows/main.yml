@@ -13,29 +13,63 @@ on:
         
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  release:
+  build-linux:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+        - os: ubuntu-latest
+          pyinstaller: pyinstaller-action-linux@0.1.4
+          filename: win
+          
+        - os: windows-latest
+          pyinstaller: pyinstaller-action-windows@v0.1.2
+          filename: linux
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: OS, pyinstaller
+        run: echo ${{ matrix.os }} ${{ matrix.pyinstaller }}.
+      
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
       
       - name: Package Application
-        uses: JackMcKew/pyinstaller-action-linux@0.1.4
+        uses: JackMcKew/${{ matrix.pyinstaller }}
         with:
           path: ./
           tkinter: true
       
-      - uses: ncipollo/release-action@v1
+      - name: Upload ${{ matrix.os }} Artifact
+        uses: actions/upload-artifact@v2
         with:
-          artifacts: "dist/linux/app"
-          name: Google Translate v${{ github.event.inputs.versionName }}
-          tag: release,v${{ github.event.inputs.versionName }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ matrix.filename }}
+          path: dist/linux/app*
+
+  release:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download ubuntu-latest Artrifact
+        uses: actions/download-artifact@v2
+        with:
+          name: linux
+          path: GoogleTranslator-v${{ github.event.inputs.versionName }}-linux
+      
+      - name: Download windows-latest Artrifact
+        uses: actions/download-artifact@v2
+        with:
+          name: win
+          path: GoogleTranslator-v${{ github.event.inputs.versionName }}-win
+          
+      - name: List All Files
+        run: ls
+
+# - uses: ncipollo/release-action@v1
+#         with:
+#           artifacts: "dist/linux/app"
+#           name: Google Translate v${{ github.event.inputs.versionName }}
+#           tag: v${{ github.event.inputs.versionName }}
+#           token: ${{ secrets.GITHUB_TOKEN }}
