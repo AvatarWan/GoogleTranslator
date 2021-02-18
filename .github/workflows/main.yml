@@ -19,6 +19,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
+        include:
+        - os: ubuntu-latest
+          pyinstaller: JackMcKew/pyinstaller-action-linux@0.1.4
+        
+        - os: windows-latest
+          pyinstaller: JackMcKew/pyinstaller-action-windows@v0.1.2
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,18 +33,25 @@ jobs:
         run: echo ${{ matrix.os }}.
       
       - uses: actions/checkout@v2
-      
+
       - name: Package Windows Application
-        if: runner.os == 'Windows'
-        run: echo "Widows Working!"
+        uses: ${{ matrix.pyinstaller }}
+        with:
+          path: ./
+          tkinter: true
+
+
+#       - name: Package Windows Application
+#         if: runner.os == 'Windows'
+#         run: echo "Widows Working!"
 #         uses: JackMcKew/pyinstaller-action-windows@v0.1.2
 #         with:
 #           path: ./
 #           tkinter: true
 
-      - name: Package Linux Application
-        if: runner.os == 'Linux'
-        run: echo "Linux Working!"
+#       - name: Package Linux Application
+#         if: runner.os == 'Linux'
+#         run: echo "Linux Working!"
 #         uses: JackMcKew/pyinstaller-action-linux@0.1.4
 #         with:
 #           path: ./
