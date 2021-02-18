@@ -34,7 +34,9 @@ jobs:
       
       - name: List All Files
         run: |
-          mv ./dist/windows\app.exe GoogleTranslate-v${{ github.event.inputs.versionName }}-win.exe
+          ls ./dist/linux/
+          ls ./dist/windows/
+          mv ./dist/windows/app.exe GoogleTranslate-v${{ github.event.inputs.versionName }}-win.exe
           mv ./dist/linux/app GoogleTranslate-v${{ github.event.inputs.versionName }}-linux
           ls .
 
