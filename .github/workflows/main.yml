@@ -34,38 +34,38 @@ jobs:
       - name: OS, pyinstaller
         run: echo ${{ matrix.os }} ${{ matrix.pyinstaller }}.
       
-      - uses: actions/checkout@v2
+#       - uses: actions/checkout@v2
       
-      - name: Package Application
-        uses: JackMcKew/${{ matrix.pyinstaller }}
-        with:
-          path: ./
-          tkinter: true
+#       - name: Package Application
+#         uses: JackMcKew/${{ matrix.pyinstaller }}
+#         with:
+#           path: ./
+#           tkinter: true
       
-      - name: Upload ${{ matrix.os }} Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.filename }}
-          path: dist/linux/app*
+#       - name: Upload ${{ matrix.os }} Artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: ${{ matrix.filename }}
+#           path: dist/linux/app*
 
-  release:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download ubuntu-latest Artrifact
-        uses: actions/download-artifact@v2
-        with:
-          name: linux
-          path: GoogleTranslator-v${{ github.event.inputs.versionName }}-linux
+#   release:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Download ubuntu-latest Artrifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: linux
+#           path: GoogleTranslator-v${{ github.event.inputs.versionName }}-linux
       
-      - name: Download windows-latest Artrifact
-        uses: actions/download-artifact@v2
-        with:
-          name: win
-          path: GoogleTranslator-v${{ github.event.inputs.versionName }}-win
+#       - name: Download windows-latest Artrifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: win
+#           path: GoogleTranslator-v${{ github.event.inputs.versionName }}-win
           
-      - name: List All Files
-        run: ls
+#       - name: List All Files
+#         run: ls
 
 # - uses: ncipollo/release-action@v1
 #         with:
