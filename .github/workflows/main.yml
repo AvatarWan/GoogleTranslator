@@ -33,15 +33,16 @@ jobs:
           tkinter: true
       
       - name: List All Files
-        run: ls dist/
+        run: |
+          ls dist/windows
+          ls dist/linux
 
-
-# - uses: ncipollo/release-action@v1
-#         with:
-#           artifacts: "dist/linux/app"
-#           name: Google Translate v${{ github.event.inputs.versionName }}
-#           tag: v${{ github.event.inputs.versionName }}
-#           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/linux/app/*"
+          name: Google Translate v${{ github.event.inputs.versionName }}
+          tag: v${{ github.event.inputs.versionName }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 
 #       - name: Upload Artifact
