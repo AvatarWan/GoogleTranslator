@@ -13,7 +13,7 @@ on:
         
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-linux:
+  build:
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
     strategy:
@@ -58,29 +58,30 @@ jobs:
       - name: Upload ${{ matrix.os }} Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.filename }}
+          name: ${{ matrix.os }}
           path: |
             dist/windows/app*
             dist/linux/app*
 
-#   release:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Download ubuntu-latest Artrifact
-#         uses: actions/download-artifact@v2
-#         with:
-#           name: linux
-#           path: GoogleTranslator-v${{ github.event.inputs.versionName }}-linux
+  release:
+    # The type of runner that the job will run on
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download ubuntu-latest Artrifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ubuntu-latest
+          path: GoogleTranslator-v${{ github.event.inputs.versionName }}-linux
       
-#       - name: Download windows-latest Artrifact
-#         uses: actions/download-artifact@v2
-#         with:
-#           name: win
-#           path: GoogleTranslator-v${{ github.event.inputs.versionName }}-win
+      - name: Download windows-latest Artrifact
+        uses: actions/download-artifact@v2
+        with:
+          name: windows-latest
+          path: GoogleTranslator-v${{ github.event.inputs.versionName }}-win
           
-#       - name: List All Files
-#         run: ls
+      - name: List All Files
+        run: ls .
 
 # - uses: ncipollo/release-action@v1
 #         with:
