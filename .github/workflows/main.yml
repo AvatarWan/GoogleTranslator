@@ -19,25 +19,25 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        include:
-        - os: ubuntu-latest
-          pyinstaller: JackMcKew/pyinstaller-action-linux@0.1.4
-          filename: win
-          
-        - os: windows-latest
-          pyinstaller: JackMcKew/pyinstaller-action-windows@v0.1.2
-          filename: linux
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: OS, pyinstaller
-        run: echo ${{ matrix.os }} ${{ matrix.pyinstaller }}.
+      - name: OS
+        run: echo ${{ matrix.os }}.
       
       - uses: actions/checkout@v2
       
-      - name: Package Application
-        uses: ${{ matrix.pyinstaller }}
+      - name: Package Windows Application
+        if: runner.os == 'Windows'
+        uses: JackMcKew/pyinstaller-action-windows@v0.1.2
+        with:
+          path: ./
+          tkinter: true
+
+      - name: Package Linux Application
+        if: runner.os == 'Linux'
+        uses: JackMcKew/pyinstaller-action-linux@0.1.4
         with:
           path: ./
           tkinter: true
