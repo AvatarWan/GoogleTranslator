@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Package Windows Application
-        uses: ${{ matrix.pyinstaller }}
+        uses: ${{ matrix.os }}
         with:
           path: ./
           tkinter: true
