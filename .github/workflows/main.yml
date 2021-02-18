@@ -21,11 +21,11 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         include:
         - os: ubuntu-latest
-          pyinstaller: pyinstaller-action-linux@0.1.4
+          pyinstaller: JackMcKew/pyinstaller-action-linux@0.1.4
           filename: win
           
         - os: windows-latest
-          pyinstaller: pyinstaller-action-windows@v0.1.2
+          pyinstaller: JackMcKew/pyinstaller-action-windows@v0.1.2
           filename: linux
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -34,13 +34,13 @@ jobs:
       - name: OS, pyinstaller
         run: echo ${{ matrix.os }} ${{ matrix.pyinstaller }}.
       
-#       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       
-#       - name: Package Application
-#         uses: JackMcKew/${{ matrix.pyinstaller }}
-#         with:
-#           path: ./
-#           tkinter: true
+      - name: Package Application
+        uses: ${{ matrix.pyinstaller }}
+        with:
+          path: ./
+          tkinter: true
       
 #       - name: Upload ${{ matrix.os }} Artifact
 #         uses: actions/upload-artifact@v2
