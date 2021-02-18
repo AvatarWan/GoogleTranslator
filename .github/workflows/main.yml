@@ -19,12 +19,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        include:
-        - os: ubuntu-latest
-          pyinstaller: JackMcKew/pyinstaller-action-linux@0.1.4
+#         include:
+#         - os: ubuntu-latest
+#           pyinstaller: JackMcKew/pyinstaller-action-linux@0.1.4
         
-        - os: windows-latest
-          pyinstaller: JackMcKew/pyinstaller-action-windows@v0.1.2
+#         - os: windows-latest
+#           pyinstaller: JackMcKew/pyinstaller-action-windows@v0.1.2
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,28 +34,26 @@ jobs:
       
       - uses: actions/checkout@v2
 
-      - name: Package Windows Application
-        uses: ${{ matrix.os }}
+#       - name: Package Windows Application
+#         uses: ${{ matrix.os }}
+#         with:
+#           path: ./
+#           tkinter: true
+
+
+      - if: runner.os == 'Windows'
+        name: Package Windows Application
+        uses: JackMcKew/pyinstaller-action-windows@v0.1.2
         with:
           path: ./
           tkinter: true
 
-
-#       - name: Package Windows Application
-#         if: runner.os == 'Windows'
-#         run: echo "Widows Working!"
-#         uses: JackMcKew/pyinstaller-action-windows@v0.1.2
-#         with:
-#           path: ./
-#           tkinter: true
-
-#       - name: Package Linux Application
-#         if: runner.os == 'Linux'
-#         run: echo "Linux Working!"
-#         uses: JackMcKew/pyinstaller-action-linux@0.1.4
-#         with:
-#           path: ./
-#           tkinter: true
+      - if: runner.os == 'Linux'
+        name: Package Linux Application
+        uses: JackMcKew/pyinstaller-action-linux@0.1.4
+        with:
+          path: ./
+          tkinter: true
       
 #       - name: Upload ${{ matrix.os }} Artifact
 #         uses: actions/upload-artifact@v2
