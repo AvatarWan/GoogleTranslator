@@ -41,9 +41,9 @@ jobs:
 #           tkinter: true
 
 
-      - if: runner.os == 'Windows'
+      - if: matrix.os == 'windows-latest'
         name: Package Windows Application
-        uses: JackMcKew/pyinstaller-action-windows@v0.1.2
+        uses: JackMcKew/pyinstaller-action-windows@main
         with:
           path: ./
 #           tkinter: true
