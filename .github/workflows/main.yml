@@ -48,7 +48,7 @@ jobs:
           path: ./
 #           tkinter: true
 
-      - if: runner.os == 'Linux'
+      - if: matrix.os == 'ubuntu-latest'
         name: Package Linux Application
         uses: JackMcKew/pyinstaller-action-linux@0.1.4
         with:
